@@ -102,6 +102,7 @@
     <title> @yield('title')</title>
 </head>
 <body>
+    @yield('content')
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
