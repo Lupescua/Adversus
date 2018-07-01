@@ -1,3 +1,8 @@
+Dear reader & future me,
+"May your words be strong but honest. May they deliver me from my mistakes and enlighten my path so I may avoid my foolishness. But do not allow yourself to venture too much on the path of criticism, cause I am.. as you may have been... a small baby dung beetle.. still unsure what the true difference between soil and shit is. 
+Namaste!"
+
+
 1. Run " composer update "
 2. Copy .env.example & rename to .env
 3. Run  " php artisan key:generate "
