@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::get('/new_user', 'UserController@step2') ;
-Route::post('/new_user', 'UserController@store') ;
+Route::get('/','UserController@index');
+Route::post('/', 'UserController@store') ;
+Route::get('/new_user/{id}', 'UserController@show') ;
