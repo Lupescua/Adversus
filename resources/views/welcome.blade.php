@@ -1,101 +1,152 @@
 @extends('layout') @section('title') Adversus_User @endsection @section('content')
-<div class="container">
-        <h1>File Upload</h1>
+<!-- I choose to build a background div containing Menu on the left & Form on the right. For the Form I used a .container class for no other reason that I started like that and have a personal fetish for that class-->
+<div class="d-flex flex-row" id="background">
+    <div id="menu">
+        <a class="nav-item nav-link menu_buttons active" href="#">
+            <img src="/img/phone_cut.png" alt="">
+            <span class="sr-only">(current)</span>
+        </a>
+        <a class="nav-item nav-link menu_buttons" href="#">
+            <img src="/img/phone.png" alt="">
+        </a>
+        <a class="nav-item nav-link menu_buttons" href="#">
+            <img src="/img/calendar.png" alt="">
+        </a>
+        <a class="nav-item nav-link menu_buttons" href="#">
+            <img src="/img/calendar.png" alt="">
+        </a>
+        <a class="nav-item nav-link menu_buttons" href="#">
+            <img src="/img/calendar.png" alt="">
+        </a>
+        <a class="nav-item nav-link menu_buttons" href="#">
+            <img src="/img/calendar.png" alt="">
+        </a>
+        <a class="nav-item nav-link menu_buttons" href="#">
+            <img src="/img/calendar.png" alt="">
+        </a>
+        <a class="nav-item nav-link menu_buttons" href="#">
+            <img src="/img/calendar.png" alt="">
+        </a>
+        <a class="nav-item nav-link menu_buttons" href="#">
+            <img src="/img/calendar.png" alt="">
+        </a>
+        <a class="nav-item nav-link menu_buttons" href="#">
+            <img src="/img/calendar.png" alt="">
+        </a>
+        <a class="nav-item nav-link menu_buttons disabled" href="#">
+            <img src="/img/calendar.png" alt="">
+        </a>
+        </nav>
+    </div>
 
-        {{--How will I tell the store method that these two forms are for the same element--}}
+
+    <div class="container col-md-6 mb-6">
+
+        <!-- Redundant code to see errors in a list. Even ones that are a bit more hidden  -->
+        <!-- @if (count($errors) > 0)
+			<div class="alert alert-danger">
+				<strong>Whoops!</strong> There were some problems with your input.<br><br>
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
+
+		@if ($message = Session::get('success'))
+		<div class="alert alert-success alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+		        <strong>{{ $message }}</strong>
+		</div>
+		<img src="/images/{{ Session::get('path') }}">
+		@endif -->
+
+
+        <h1>Edit Profile</h1>
+        <hr>
         <form action="{{ action('UserController@store') }}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
 
-            <label>Select profile image:</label>
-            <input type="file" name="photo" id="file">
-            <input type="hidden" name="step" value="1">
-            <input type="hidden" name="pass" value="{{old('password')}}">
-            <div class="form-row">
-                <div class="col-md-4 mb-3">
-                    <label for="validationDefault01">Name</label>
-                    <input name="name" type="text" class="form-control" id="validationDefault01"
-                           placeholder="{{old('name')}}" value="{{old('name')}}" required>
+            <div class="d-flex flex-row">
+                <div class="img-responsive">
+                    <div class="round_image"></div>
                 </div>
-                <div class="col-md-4 mb-3">
+                <!--Upload Photo -->
+                <div id="upload_photo">
+                    <input type="file" class="image_upload_button" name="image" id="file" required>
+                    <span style="color:red">{{$errors->first('image')}}</span>
+                    <p>
+                        <small>Minimum size is 250 x 250 px</small>
+                    </p>
+                    <p>
+                        <small>Only JPG and PNG is allowed</small>
+                    </p>
+                </div>
+                <!--End of Upload Photo -->
+            </div>
+
+            <!--User First & Last Name -->
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="validationDefault01">First Name</label>
+                    <input name="firstname" type="text" class="form-control" id="validationDefault01" placeholder="{{old('firstname')}}" value="{{old('firstname')}}"
+                        required>
+                    <span style="color:red">{{$errors->first('firstname')}}</span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="validationDefault02">Last Name</label>
+                    <input name="lastname" type="text" class="form-control" id="validationDefault02" placeholder="{{old('lastname')}}" value="{{old('lastname')}}"
+                        required>
+                    <span style="color:red">{{$errors->first('lastname')}}</span>
+                </div>
+            </div>
+            <!--End of User First & Last Name -->
+
+            <!--User Email and Phone -->
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
                     <label for="validationDefaultEmail">Email</label>
                     <div class="input-group">
-                        <div class="input-group-prepend">
-                        </div>
-                        <input name="email" type="email" class="form-control" id="validationDefaultEmail"
-                                       placeholder="{{old('email')}}" value="{{old('email')}}" aria-describedby="inputGroupPrepend2"
-                               required>
+                        <input name="email" type="email" class="form-control" id="validationDefaultEmail" placeholder="{{old('email')}}" value="{{old('email')}}"
+                            aria-describedby="inputGroupPrepend2" required>
+                        <span style="color:red">{{$errors->first('email')}}</span>
                     </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="validationDefaultPhone">Phone Number</label>
+                    <input name="phone_number" type="text" class="form-control" id="validationDefaultPhone" placeholder="{{old('phone_number')}}"
+                        value="{{old('phone_number')}}" required>
+                    <span style="color:red">{{$errors->first('phone_number')}}</span>
+                </div>
+            </div>
+            <!--End of User Email and Phone -->
+            <hr>
+            <!--User Password -->
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="inputPassword">Password</label>
+                    <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                    <span style="color:red">{{$errors->first('password')}}</span>
+                </div>
+                <!-- Check if pass confirm = pass -->
+                <div class="col-md-6 mb-3">
+                    <label for="repeatPassword">Repeat password</label>
+                    <input name="password_confirmation" type="password" class="form-control" id="repeatPassword" placeholder="Password" required>
+                    <span style="color:red">{{$errors->first('password_confirmation')}}</span>
+                </div>
+            </div>
+            <!--End of User Password-->
+
+            <div class="form-row bottom">
+                <div class="col-md-12 mb-6 d-flex flex-row-reverse">
+                    <button class="btn btn-primary" type="submit">Save</button>
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="col-md-3 mb-3">
-                    <label for="validationDefault05">Country</label>
-                    <input name="adress_country" type="text" class="form-control" id="validationDefault02"
-                           placeholder="Country">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="validationDefault03">City</label>
-                    <input name="adress_city" type="text" class="form-control" id="validationDefault03"
-                           placeholder="City">
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label for="inputState">State</label>
-                    <select name="adress_state" id="inputState" class="form-control">
-                        <option>Timis</option>
-                        <option>Olt</option>
-                        <option>Dolj</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="col-md-9 mb-3">
-                    <label for="inputAddress">Home Address</label>
-                    <input name="adress_street" type="text" class="form-control" id="validationDefault04"
-                           placeholder="Adress">
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label for="validationDefault05">Zip</label>
-                    <input name="adress_zip" type="text" class="form-control" id="validationDefault05"
-                           placeholder="Zip">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                    <label name="agree_to_terms" class="form-check-label" for="invalidCheck2">
-                        Agree to terms and conditions
-                    </label>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="col-md-6 mb-3">
-                    <label class="mr-sm-2" for="inlineFormCustomSelect">Prefered Language</label>
-                    <select name="prefered_language" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                        <option value="English">English</option>
-                        <option value="French">French</option>
-                        <option value="Czech">Czech</option>
-                    </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label class="mr-sm-2" for="inlineFormCustomSelect">Prefered Description</label>
-                    <small id="emailHelp" class="form-text text-muted">Press Ctrl/Cmd to select multiple.</small>
-                    <select name="user_tags" class="selectpicker" multiple>
-                        <optgroup label="Historic" data-max-options="2">
-                            <option value="Trail">Trail</option>
-                            <option value="Castles">Castles</option>
-                            <option value="Reenactment">Reenactment</option>
-                        </optgroup>
-                        <optgroup label="Views" data-max-options="2">
-                            <option value="Nature">Nature</option>
-                            <option value="City">City</option>
-                            <option value="Event">Event</option>
-                        </optgroup>
-                    </select>
-                </div>
-            </div>
-            <button class="btn btn-primary" type="submit">Submit</button>
         </form>
 
     </div>
+</div>
+
 @endsection
