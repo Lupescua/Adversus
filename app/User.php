@@ -18,6 +18,14 @@ class User extends Authenticatable
         'firstname', 'lastname', 'email', 'phone_number', 'password',
     ];
 
+    protected $rules=array(
+        'firstname'=>'required',
+        'lastname'=>'required',
+        'password'=>'required|confirmed',
+        'password_confirmation'=>'',
+        'email'=>'required|email',
+        'phone_number'=>'required',
+    );
     /**
      * The attributes that should be hidden for arrays.
      *
