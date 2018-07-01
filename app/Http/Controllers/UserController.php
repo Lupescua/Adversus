@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\Input as Input;
 use Illuminate\Validation\Validator;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -44,27 +45,27 @@ class UserController extends Controller
             
             $user =  new User();
 
-              //validation
+            //   validation
             $this->validate($request, [
                 'firstname'=>'required',
                 'lastname'=>'required',
                 'email'=>'required|email',
-                'password'=>'required',
-                'phone_number'=>'required',
-                'image' => 'required|image|mimes:jpeg,png|max:2048|dimensions:min_width=250 px,min_height=250 px',
+                'password' => 'min:3|required_with:password_confirmation|same:password_confirmation',
+                'password_confirmation' => 'min:3',
+                'phone_number'=>'required',               
+                'image' => 'required|image|mimes:jpeg,png,jpg|dimensions:min_width=250,min_height=250',
             ]);
 
-
-            $user->firstname = $request->firstname;
-            $user->lastname = $request->lastname;
-            $user->password = $request->password;
-            $user->email = $request->email;
-            $user->phone_number = $request->phone_nr;
             if(Input::hasFile('image')){
                 $file = Input::file('image');
                 $user->image = $file->getClientOriginalName();
                 $file->move('img', $file->getClientOriginalName());
-            };
+            }
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+            $user->password = $request->password;
+            $user->email = $request->email;
+            $user->phone_number = $request->phone_number;
             $user->save();
 
             event(new Registered($user));
@@ -78,10 +79,16 @@ class UserController extends Controller
 
     }
 
+ /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
         $user = User::find($id);
-        return view('welcome',compact('user'));
+        return view('new_user',compact('user'));
 
     }
 
