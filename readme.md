@@ -9,7 +9,7 @@ Namaste!"
 4. Add your server DB_DATABASE name, DB_USERNAME and DB_PASSWORD
 5. Run  " php artisan key:generate "
 6. Run  " php artisan migrate "
-7. Run " php -S localhost:8001 "
+7. Run " php artisan serve "
 8. Enjoy :)
 
 9. In case you received this error: "Unable to guess the mime type as no guessers are available (Did you enable the php_fileinfo extension?)":
